@@ -12,14 +12,15 @@ import { X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 // Organized image array grouping file pairs cleanly by asset folder paths
 const allImages = [
   // Main House
-  "/main house/h (1).png",
+   "/main house/h (4).png",
   "/main house/h (1).webp",
-  "/main house/h (2).png",
   "/main house/h (2).webp",
+  "/main house/h (1).png",
+  "/main house/h (2).png",
   "/main house/h (3).png",
-  "/main house/h (3).webp",
-  "/main house/h (4).png",
-  "/main house/h (5).png",
+  // "/main house/h (5).png",
+ 
+
 
   // Gym
   "/gym/g (1).png",
@@ -38,6 +39,61 @@ const allImages = [
   "/pets/p (1).JPG",
   "/pets/p (2).JPG",
   "/pets/p (3).JPG",
+
+  // Amazon Bus (New)
+  "/kailasha-new-iamges/amazon-bus/1.webp",
+  "/kailasha-new-iamges/amazon-bus/10.jpg",
+  "/kailasha-new-iamges/amazon-bus/10.webp",
+  "/kailasha-new-iamges/amazon-bus/11.webp",
+  "/kailasha-new-iamges/amazon-bus/12.webp",
+  "/kailasha-new-iamges/amazon-bus/2.webp",
+  "/kailasha-new-iamges/amazon-bus/3.webp",
+  "/kailasha-new-iamges/amazon-bus/4.webp",
+  "/kailasha-new-iamges/amazon-bus/5.webp",
+  "/kailasha-new-iamges/amazon-bus/6.webp",
+  "/kailasha-new-iamges/amazon-bus/7.webp",
+  "/kailasha-new-iamges/amazon-bus/8.webp",
+  // "/kailasha-new-iamges/amazon-bus/9.webp",
+
+  // Bamboo Cottage (New)
+  "/kailasha-new-iamges/bamboo-cottage/1.webp",
+  "/kailasha-new-iamges/bamboo-cottage/2.webp",
+  "/kailasha-new-iamges/bamboo-cottage/3.webp",
+  "/kailasha-new-iamges/bamboo-cottage/4.webp",
+  "/kailasha-new-iamges/bamboo-cottage/5.webp",
+  "/kailasha-new-iamges/bamboo-cottage/6.webp",
+  "/kailasha-new-iamges/bamboo-cottage/7.webp",
+  "/kailasha-new-iamges/bamboo-cottage/8.webp",
+  "/kailasha-new-iamges/bamboo-cottage/9.webp",
+
+  // Family Room (New)
+  "/kailasha-new-iamges/family-room/1.webp",
+  "/kailasha-new-iamges/family-room/10.webp",
+  "/kailasha-new-iamges/family-room/11.webp",
+  "/kailasha-new-iamges/family-room/12.webp",
+  "/kailasha-new-iamges/family-room/2.webp",
+  "/kailasha-new-iamges/family-room/3.webp",
+  "/kailasha-new-iamges/family-room/4.webp",
+  "/kailasha-new-iamges/family-room/5.webp",
+  "/kailasha-new-iamges/family-room/6.webp",
+  "/kailasha-new-iamges/family-room/7.webp",
+  "/kailasha-new-iamges/family-room/8.webp",
+  "/kailasha-new-iamges/family-room/9.webp",
+
+  // Other New Images (in root of kailasha-new-iamges)
+  "/kailasha-new-iamges/1.webp",
+  "/kailasha-new-iamges/10.webp",
+  "/kailasha-new-iamges/11.webp",
+  "/kailasha-new-iamges/12.webp",
+  "/kailasha-new-iamges/13.webp",
+  "/kailasha-new-iamges/2.webp",
+  // "/kailasha-new-iamges/3.webp",
+  "/kailasha-new-iamges/4.webp",
+  "/kailasha-new-iamges/5.jpg",
+  "/kailasha-new-iamges/6.webp",
+  "/kailasha-new-iamges/7.webp",
+  "/kailasha-new-iamges/8.webp",
+  "/kailasha-new-iamges/9.webp",
 ];
 
 // Soft, premium spring physics configurations
@@ -100,10 +156,13 @@ export default function GalleryClient() {
     if (path.includes("/gym/")) return "Gym";
     if (path.includes("/mandir bonfire/")) return "Mandir & Bonfire";
     if (path.includes("/pets/")) return "Pets";
+    if (path.includes("/kailasha-new-iamges/amazon-bus/")) return "Amazon Bus";
+    if (path.includes("/kailasha-new-iamges/bamboo-cottage/")) return "Bamboo Cottage";
+    if (path.includes("/kailasha-new-iamges/family-room/")) return "Family Room";
     return "Other";
   };
 
-  const categories = ["All", "Main House", "Gym", "Mandir & Bonfire", "Pets"];
+  const categories = ["All", "Main House", "Gym", "Mandir & Bonfire", "Pets", "Amazon Bus", "Bamboo Cottage", "Family Room", "Other"];
 
   const filteredImages = allImages.filter(
     (img) => activeCategory === "All" || getCategoryFromPath(img) === activeCategory

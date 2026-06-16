@@ -9,6 +9,9 @@ import CustomCursor from "@/components/ui/CustomCursor";
 export const metadata: Metadata = {
   title: "Kailasa Woods | Luxury Farm Stay in Mussoorie",
   description: "A farm to table luxury Farm Stay in the Foothills of Mussoorie. Experience slow living, earthy luxury, and boutique hospitality.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
