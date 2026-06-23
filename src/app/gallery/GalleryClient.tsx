@@ -84,9 +84,9 @@ const familyRoomImages = [
 
 ];
 
-const otherImages = [
-  "/others/2.webp",
-  "/others/7.webp",
+const swimmingPoolImages = [
+  "/swimmingpool/2.webp",
+  "/swimmingpool/7.webp",
 ];
 
 const allImages = [
@@ -97,7 +97,7 @@ const allImages = [
   ...amazonBusImages,
   ...bambooCottageImages,
   ...familyRoomImages,
-  ...otherImages
+  ...swimmingPoolImages,
 ];
 
 const categories = [
@@ -109,7 +109,7 @@ const categories = [
   "Amazon Bus",
   "Bamboo Cottage",
   "Family Room",
-  "Other"
+  "Swimming Pool"
 ];
 
 // Soft, premium spring physics configurations
@@ -185,8 +185,8 @@ export default function GalleryClient() {
         return bambooCottageImages;
       case "Family Room":
         return familyRoomImages;
-      case "Other":
-        return otherImages;
+      case "Swimming Pool":
+        return swimmingPoolImages;
       default:
         return [];
     }

@@ -74,11 +74,11 @@ export default async function StayDetailPage({ params }: { params: Promise<{ slu
             {stay.fullDescription}
           </p>
           
-          <div className="border-t border-b border-kw-forest/10 py-12 mb-12 text-left">
+          <div className="border-t border-b border-kw-forest/10 py-12 mb-12 text-center md:text-left">
             <h3 className="text-sm uppercase tracking-widest text-kw-sage mb-8 font-medium text-center">Room Amenities</h3>
-            <ul className="grid grid-cols-2 md:grid-cols-3 gap-y-6 gap-x-4">
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-4">
               {stay.amenities.map((amenity, idx) => (
-                <li key={idx} className="flex items-center gap-3 text-kw-forest/80">
+                <li key={idx} className="flex items-center justify-center md:justify-start gap-3 text-kw-forest/80">
                   <div className="w-1.5 h-1.5 rounded-full bg-kw-sage shrink-0" />
                   <span className="text-sm md:text-base">{amenity}</span>
                 </li>
@@ -106,11 +106,11 @@ export default async function StayDetailPage({ params }: { params: Promise<{ slu
               The common areas are an integral part of your stay at Kailasa Woods. Whether you want to stay active, relax with a book, or enjoy an evening by the bonfire, our shared spaces offer something for everyone.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-0 border-t border-kw-forest/10 mt-12 text-left">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-0 border-t border-kw-forest/10 mt-12 text-center md:text-left">
               {amenitiesList.map((amenity, index) => (
                 <div
                   key={index}
-                  className="py-6 border-b border-kw-forest/10 flex items-center justify-between"
+                  className="py-6 border-b border-kw-forest/10 flex items-center justify-center md:justify-between gap-2"
                 >
                   <h3 className="font-sans font-medium text-lg text-kw-forest">{amenity}</h3>
                   <div className="w-1.5 h-1.5 rounded-full bg-kw-sage" />

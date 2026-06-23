@@ -14,13 +14,13 @@ function AccommodationItem({ item, index, scrollYProgress, total }: { item: { de
       style={{ zIndex: index + 10 }}
     >
       {/* Text Side */}
-      <div className="w-full md:w-1/2 p-8 py-16 md:p-16 lg:p-24 flex flex-col justify-center h-auto md:h-full bg-kw-beige shadow-[0_-20px_50px_rgba(0,0,0,0.05)] md:shadow-none z-20">
+      <div className="w-full md:w-1/2 p-8 py-16 md:p-16 lg:p-24 flex flex-col justify-center h-auto md:h-full bg-kw-beige shadow-[0_-20px_50px_rgba(0,0,0,0.05)] md:shadow-none z-20 text-center md:text-left">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <div className="flex items-center gap-4 mb-6">
+          <div className="flex items-center justify-center md:justify-start gap-4 mb-6">
             <span className="text-kw-sage tracking-widest font-mono text-sm">0{index + 1}</span>
             <div className="h-px w-12 bg-kw-sage/50" />
             <span className="text-xs uppercase tracking-widest text-kw-forest/50">{item.details}</span>
@@ -28,15 +28,15 @@ function AccommodationItem({ item, index, scrollYProgress, total }: { item: { de
           <h3 className="font-serif text-4xl md:text-5xl lg:text-6xl mb-8">
             {item.title}
           </h3>
-          <p className="text-base md:text-lg text-kw-forest/80 leading-relaxed mb-10 max-w-lg">
+          <p className="text-base md:text-lg text-kw-forest/80 leading-relaxed mb-10 max-w-lg mx-auto md:mx-0">
             {item.description}
           </p>
           
-          <div className="mb-10">
+          <div className="mb-10 text-center md:text-left">
             <h4 className="text-xs uppercase tracking-widest text-kw-forest/50 mb-4">Room Includes</h4>
-            <ul className="grid grid-cols-2 gap-y-2 gap-x-4">
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4">
               {item.amenities.map((amenity, i) => (
-                <li key={i} className="text-sm text-kw-forest/80 flex items-center gap-2">
+                <li key={i} className="text-sm text-kw-forest/80 flex items-center justify-center md:justify-start gap-2">
                   <div className="w-1 h-1 rounded-full bg-kw-sage" />
                   {amenity}
                 </li>
@@ -77,17 +77,19 @@ function AccommodationItem({ item, index, scrollYProgress, total }: { item: { de
             </AnimatePresence>
           </div> */}
 
-          <Link href={`/stay`}>
-            <motion.button 
-              whileHover={{ scale: 1.05, x: 5 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative group overflow-hidden border-b border-kw-forest pb-1 uppercase tracking-widest text-xs font-bold w-fit"
-            >
-              <span className="relative z-10 group-hover:text-kw-sage transition-colors duration-300">
-                View Details
-              </span>
-            </motion.button>
-          </Link>
+          <div className="flex justify-center md:justify-start">
+            <Link href={`/stay`}>
+              <motion.button 
+                whileHover={{ scale: 1.05, x: 5 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative group overflow-hidden border-b border-kw-forest pb-1 uppercase tracking-widest text-xs font-bold w-fit"
+              >
+                <span className="relative z-10 group-hover:text-kw-sage transition-colors duration-300">
+                  View Details
+                </span>
+              </motion.button>
+            </Link>
+          </div>
         </motion.div>
       </div>
       

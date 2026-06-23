@@ -88,14 +88,14 @@ export default function StayPage() {
                 </div>
 
                 {/* Content */}
-                <div className="w-full md:w-1/2 md:px-8 lg:px-12">
+                <div className="w-full md:w-1/2 md:px-8 lg:px-12 text-center md:text-left">
                   <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                   >
-                    <div className="flex items-center gap-4 mb-6">
+                    <div className="flex items-center justify-center md:justify-start gap-4 mb-6">
                       <span className="text-kw-sage tracking-widest font-mono text-sm">0{index + 1}</span>
                       <div className="h-px w-12 bg-kw-sage/50" />
                       <span className="text-xs uppercase tracking-widest text-kw-forest/50">{item.details}</span>
@@ -109,9 +109,9 @@ export default function StayPage() {
                     
                     <div className="mb-10">
                       <h4 className="text-xs uppercase tracking-widest text-kw-forest/50 mb-4">Room Includes</h4>
-                      <ul className="grid grid-cols-2 gap-y-3 gap-x-4">
+                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-4">
                         {item.amenities.map((amenity, i) => (
-                          <li key={i} className="text-sm text-kw-forest/80 flex items-center gap-2">
+                          <li key={i} className="text-sm text-kw-forest/80 flex items-center justify-center md:justify-start gap-2">
                             <div className="w-1.5 h-1.5 rounded-full bg-kw-sage" />
                             {amenity}
                           </li>
@@ -119,17 +119,19 @@ export default function StayPage() {
                       </ul>
                     </div>
 
-                    <Link href={`/stay/${item.id}`}>
-                      <motion.button 
-                        whileHover={{ scale: 1.05, x: 5 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="relative group overflow-hidden border-b border-kw-forest pb-1 uppercase tracking-widest text-xs font-bold w-fit text-kw-forest"
-                      >
-                        <span className="relative z-10 group-hover:text-kw-sage transition-colors duration-300">
-                          View Room Details
-                        </span>
-                      </motion.button>
-                    </Link>
+                    <div className="flex justify-center md:justify-start">
+                      <Link href={`/stay/${item.id}`}>
+                        <motion.button 
+                          whileHover={{ scale: 1.05, x: 5 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="relative group overflow-hidden border-b border-kw-forest pb-1 uppercase tracking-widest text-xs font-bold w-fit text-kw-forest"
+                        >
+                          <span className="relative z-10 group-hover:text-kw-sage transition-colors duration-300">
+                            View Room Details
+                          </span>
+                        </motion.button>
+                      </Link>
+                    </div>
                   </motion.div>
                 </div>
               </div>
@@ -160,7 +162,7 @@ export default function StayPage() {
               The common areas are an integral part of your stay at Kailasa Woods. Whether you want to stay active, relax with a book, or enjoy an evening by the bonfire, our shared spaces offer something for everyone.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-0 border-t border-kw-forest/10 mt-12 text-left">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-0 border-t border-kw-forest/10 mt-12 text-center md:text-left">
               {amenitiesList.map((amenity, index) => (
                 <motion.div
                   key={index}
@@ -168,7 +170,7 @@ export default function StayPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
-                  className="py-6 border-b border-kw-forest/10 flex items-center justify-between group hover:pl-4 transition-all duration-300"
+                  className="py-6 border-b border-kw-forest/10 flex items-center justify-center md:justify-between gap-2 group hover:pl-0 md:hover:pl-4 transition-all duration-300"
                 >
                   <h3 className="font-sans font-medium text-lg text-kw-forest group-hover:text-kw-sage transition-colors">{amenity}</h3>
                   <div className="w-1.5 h-1.5 rounded-full bg-kw-sage opacity-0 group-hover:opacity-100 transition-opacity" />
