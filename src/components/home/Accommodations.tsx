@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import Link from "next/link";
 import { staysData as accommodations } from "@/data/stays";
 
-function AccommodationItem({ item, index, scrollYProgress, total }: { item: { details: string; title: string; description: string; heroImage: string; amenities: string[] }, index: number, scrollYProgress: MotionValue<number>, total: number }) {
+function AccommodationItem({ item, index, scrollYProgress, total }: { item: { id: string; details: string; title: string; description: string; heroImage: string; amenities: string[] }, index: number, scrollYProgress: MotionValue<number>, total: number }) {
   const y = useTransform(scrollYProgress, [Math.max(0, (index - 1) / total), (index + 1) / total], ["-15%", "15%"]);
 
   return (
@@ -77,8 +77,8 @@ function AccommodationItem({ item, index, scrollYProgress, total }: { item: { de
             </AnimatePresence>
           </div> */}
 
-          <div className="flex justify-center md:justify-start">
-            <Link href={`/stay`}>
+          <div className="flex flex-col gap-4 justify-center md:justify-start">
+            <Link href={`/stay/${item.id}`}>
               <motion.button 
                 whileHover={{ scale: 1.05, x: 5 }}
                 whileTap={{ scale: 0.95 }}
@@ -86,6 +86,17 @@ function AccommodationItem({ item, index, scrollYProgress, total }: { item: { de
               >
                 <span className="relative z-10 group-hover:text-kw-sage transition-colors duration-300">
                   View Details
+                </span>
+              </motion.button>
+            </Link>
+            <Link href={`/contact`}>
+              <motion.button 
+                whileHover={{ scale: 1.05, x: 5 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative group overflow-hidden bg-kw-forest text-kw-beige px-6 py-3 uppercase tracking-widest text-xs font-bold"
+              >
+                <span className="relative z-10 group-hover:text-kw-sage transition-colors duration-300">
+                  Book Now
                 </span>
               </motion.button>
             </Link>

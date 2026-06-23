@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -10,57 +10,146 @@ type Props = {
 };
 
 export default function StayGallery({ gallery, title }: Props) {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const thumbnailsRef = useRef<HTMLDivElement>(null);
+
+  // Auto slide every 5 seconds
+  useEffect(() => {
+    const startAutoSlide = () => {
+      timeoutRef.current = setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % gallery.length);
+      }, 5000);
+    };
+
+    startAutoSlide();
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [currentIndex, gallery.length]);
+
+  // Reset auto slide when user clicks
+  const handleThumbnailClick = (index: number) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setCurrentIndex(index);
+    // Scroll clicked thumbnail into view
+    if (thumbnailsRef.current && thumbnailsRef.current.children[index]) {
+      (thumbnailsRef.current.children[index] as HTMLElement).scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
+  };
+
+  const handlePrev = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    // Scroll thumbnails container
+    if (thumbnailsRef.current) {
+      thumbnailsRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+    setCurrentIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
+  };
+
+  const handleNext = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    // Scroll thumbnails container
+    if (thumbnailsRef.current) {
+      thumbnailsRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+    setCurrentIndex((prev) => (prev + 1) % gallery.length);
+  };
 
   // Close lightbox on escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSelectedIndex(null);
-      if (e.key === "ArrowLeft") handlePrev();
-      if (e.key === "ArrowRight") handleNext();
+      if (e.key === "ArrowLeft") {
+        if (selectedIndex !== null) {
+          setSelectedIndex((selectedIndex - 1 + gallery.length) % gallery.length);
+        } else {
+          handlePrev();
+        }
+      }
+      if (e.key === "ArrowRight") {
+        if (selectedIndex !== null) {
+          setSelectedIndex((selectedIndex + 1) % gallery.length);
+        } else {
+          handleNext();
+        }
+      }
     };
-    if (selectedIndex !== null) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
+    window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedIndex]);
-
-  const handleNext = () => {
-    if (selectedIndex !== null) {
-      setSelectedIndex((selectedIndex + 1) % gallery.length);
-    }
-  };
-
-  const handlePrev = () => {
-    if (selectedIndex !== null) {
-      setSelectedIndex((selectedIndex - 1 + gallery.length) % gallery.length);
-    }
-  };
+  }, [selectedIndex, gallery.length]);
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-        {gallery.map((imgSrc, index) => (
-          <div 
-            key={index} 
-            onClick={() => setSelectedIndex(index)}
-            className={`relative overflow-hidden group rounded-sm cursor-pointer ${index === 0 ? 'md:col-span-2 md:row-span-2 h-[50vh] md:h-[80vh]' : 'h-[40vh]'}`}
-          >
-            <img 
-              src={imgSrc} 
-              alt={`${title} gallery image ${index + 1}`}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      {/* Main Slider */}
+      <div className="relative mb-8">
+        <div className="aspect-video md:aspect-[21/9] w-full overflow-hidden rounded-lg">
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={currentIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              src={gallery[currentIndex]}
+              alt={`${title} main image`}
+              className="w-full h-full object-cover cursor-pointer"
+              onClick={() => setSelectedIndex(currentIndex)}
             />
-            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-300" />
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span className="bg-white/20 backdrop-blur-sm text-white uppercase tracking-widest text-xs py-2 px-4 rounded-full">
-                View
-              </span>
-            </div>
-          </div>
-        ))}
+          </AnimatePresence>
+        </div>
       </div>
 
+      {/* Thumbnails with Navigation */}
+      <div className="relative">
+        <button
+          onClick={handlePrev}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+        >
+          <ChevronLeft size={24} />
+        </button>
+
+        <div ref={thumbnailsRef} className="flex gap-4 overflow-x-auto pb-4 mx-10 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {gallery.map((imgSrc, index) => (
+            <div
+              key={index}
+              onClick={() => handleThumbnailClick(index)}
+              className={`flex-shrink-0 w-1/4 max-w-[200px] aspect-video overflow-hidden rounded-lg cursor-pointer transition-all ${
+                currentIndex === index ? 'ring-2 ring-kw-forest' : 'opacity-60 hover:opacity-100'
+              }`}
+            >
+              <img
+                src={imgSrc}
+                alt={`${title} thumbnail ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
+
+        <button
+          onClick={handleNext}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+        >
+          <ChevronRight size={24} />
+        </button>
+      </div>
+
+      {/* Lightbox */}
       <AnimatePresence>
         {selectedIndex !== null && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm">
@@ -80,7 +169,7 @@ export default function StayGallery({ gallery, title }: Props) {
             </button>
 
             <button 
-              onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+              onClick={(e) => { e.stopPropagation(); setSelectedIndex((selectedIndex - 1 + gallery.length) % gallery.length); }}
               className="absolute left-4 md:left-12 z-50 text-white/70 hover:text-white transition-colors p-2"
             >
               <ChevronLeft size={48} strokeWidth={1.5} />
@@ -98,7 +187,7 @@ export default function StayGallery({ gallery, title }: Props) {
             />
 
             <button 
-              onClick={(e) => { e.stopPropagation(); handleNext(); }}
+              onClick={(e) => { e.stopPropagation(); setSelectedIndex((selectedIndex + 1) % gallery.length); }}
               className="absolute right-4 md:right-12 z-50 text-white/70 hover:text-white transition-colors p-2"
             >
               <ChevronRight size={48} strokeWidth={1.5} />

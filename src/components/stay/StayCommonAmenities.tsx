@@ -1,0 +1,135 @@
+"use client";
+
+import { useState } from "react";
+import { motion, Variants } from "framer-motion";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import Image from "next/image";
+
+const amenitiesList = [
+  {
+    name: "Farm-to-Table Organic Meals",
+    description: "Savor fresh, organic meals prepared with ingredients grown right here on our estate. Experience the authentic taste of nature with every bite.",
+    image: "/food/f (1).webp"
+  },
+  {
+    name: "High-Speed Wifi",
+    description: "Stay connected with reliable high-speed internet access throughout the property, perfect for both work and leisure.",
+    image: "/wifi-1.jpg"
+  },
+  {
+    name: "Living Area",
+    description: "Relax in our spacious, comfortable living areas designed for unwinding and spending quality time with loved ones.",
+    image: "/family/f (1).webp"
+  },
+  {
+    name: "Swimming Pool",
+    description: "Take a refreshing dip in our pristine swimming pool, surrounded by nature for a truly serene experience.",
+    image: "/swimmingpool/2.webp"
+  },
+  {
+    name: "Outdoor Deck Sitting",
+    description: "Enjoy the fresh air and beautiful views from our outdoor deck sitting area, perfect for morning coffee or evening conversations.",
+    image: "/kailasha-new-iamges/6.webp"
+  },
+  {
+    name: "Gym",
+    description: "Maintain your fitness routine in our well-equipped gym with modern equipment and a motivating atmosphere.",
+    image: "/new/5.jpg"
+  },
+  {
+    name: "Recreation",
+    description: "Engage in various recreational activities that keep you entertained and connected with nature during your stay.",
+    image: "/new/1.webp"
+  },
+  {
+    name: "Kailasa Temple",
+    description: "Find peace and spirituality at our beautiful Kailasa Temple, a perfect place for meditation and reflection.",
+    image: "/mandir bonfire/m (2).webp"
+  },
+  {
+    name: "Bonfire Area",
+    description: "Gather around the bonfire in the evening for warmth, stories, and unforgettable moments under the stars.",
+    image: "/new/6.jpg"
+  },
+  {
+    name: "Library",
+    description: "Escape into a good book in our cozy library, stocked with a diverse collection for all reading interests.",
+    image: "/new/13.jpg"
+  },
+  {
+    name: "Farm Walks",
+    description: "Explore our organic farm on guided walks, learn about sustainable farming, and connect with the land.",
+    image: "/new/4.png"
+  },
+];
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    }
+  }
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+};
+
+export default function StayCommonAmenities() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggleAccordion = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <motion.div 
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 border-t border-kw-forest/10 mt-12 text-left"
+    >
+      {amenitiesList.map((amenity, index) => (
+        <motion.div
+          key={index}
+          variants={itemVariants}
+          className="border-b border-kw-forest/10"
+        >
+          <button
+            onClick={() => toggleAccordion(index)}
+            className="w-full flex items-center justify-between py-4 text-left"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-1.5 h-1.5 rounded-full bg-kw-sage" />
+              <h3 className="font-sans font-medium text-lg text-kw-forest">{amenity.name}</h3>
+            </div>
+            {openIndex === index ? <ChevronUp className="text-kw-forest/60" size={20} /> : <ChevronDown className="text-kw-forest/60" size={20} />}
+          </button>
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: openIndex === index ? "auto" : 0, opacity: openIndex === index ? 1 : 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="overflow-hidden"
+          >
+            <div className="pb-6 pl-8">
+              <div className="mb-4 h-64 w-full overflow-hidden rounded-lg relative">
+                <Image
+                  src={amenity.image}
+                  alt={amenity.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <p className="text-kw-forest/70">{amenity.description}</p>
+            </div>
+          </motion.div>
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+}

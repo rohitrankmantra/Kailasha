@@ -4,20 +4,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import StayBookingWrapper from "@/components/stay/StayBookingWrapper";
 import StayGallery from "@/components/stay/StayGallery";
-
-const amenitiesList = [
-  "Farm-to-Table Organic Meals",
-  "High-Speed Wifi",
-  "Living Area",
-  "Swimming Pool",
-  "Outdoor Deck Sitting",
-  "Gym",
-  "Recreation",
-  "Kailasa Temple",
-  "Bonfire Area",
-  "Library",
-  "Farm Walks"
-];
+import StayCommonAmenities from "@/components/stay/StayCommonAmenities";
 
 export function generateStaticParams() {
   return staysData.map((stay) => ({
@@ -63,6 +50,13 @@ export default async function StayDetailPage({ params }: { params: Promise<{ slu
         </Link>
       </section>
 
+      {/* Gallery Section */}
+      <section className="py-20 px-6 md:px-12 bg-kw-stone">
+        <div className="container mx-auto">
+          <StayGallery gallery={stay.gallery} title={stay.title} />
+        </div>
+      </section>
+
       {/* Description Section */}
       <section className="py-24 px-6 md:px-12 bg-kw-beige">
         <div className="container mx-auto max-w-4xl text-center">
@@ -106,30 +100,8 @@ export default async function StayDetailPage({ params }: { params: Promise<{ slu
               The common areas are an integral part of your stay at Kailasa Woods. Whether you want to stay active, relax with a book, or enjoy an evening by the bonfire, our shared spaces offer something for everyone.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-0 border-t border-kw-forest/10 mt-12 text-center md:text-left">
-              {amenitiesList.map((amenity, index) => (
-                <div
-                  key={index}
-                  className="py-6 border-b border-kw-forest/10 flex items-center justify-center md:justify-between gap-2"
-                >
-                  <h3 className="font-sans font-medium text-lg text-kw-forest">{amenity}</h3>
-                  <div className="w-1.5 h-1.5 rounded-full bg-kw-sage" />
-                </div>
-              ))}
-            </div>
+            <StayCommonAmenities />
           </div>
-        </div>
-      </section>
-
-      {/* Gallery Section */}
-      <section className="py-20 px-6 md:px-12 bg-kw-stone">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-serif text-4xl md:text-5xl mb-4 text-kw-forest">Gallery</h2>
-            <p className="text-kw-forest/70 uppercase tracking-widest text-xs">Glimpses of your stay</p>
-          </div>
-          
-          <StayGallery gallery={stay.gallery} title={stay.title} />
         </div>
       </section>
     </main>
