@@ -63,7 +63,7 @@ export default function Preloader() {
                 transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
                 className="text-kw-sage uppercase text-xs mt-4 opacity-80"
               >
-                A Return to Serenity
+                Home away from home
               </motion.p>
             </motion.div>
             

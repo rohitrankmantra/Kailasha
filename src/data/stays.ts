@@ -8,9 +8,8 @@ export const standardRoomAmenities = [
 ];
 
 export const commonAmenities = [
-  "Living Area",
   "Swimming Pool",
-  "Outdoor Deck Sitting",
+  "Outdoor Sitting",
   "Gym",
   "Table Tennis",
   "Snooker Table",
@@ -19,7 +18,10 @@ export const commonAmenities = [
   "Kailasa Temple",
   "Bonfire Area",
   "Library",
-  "Farm Walks"
+  "Farm Walks",
+  "Pet Friendly",
+  "24/7 Power Backup",
+  "Tea and Souvenirs"
 ];
 
 export const staysData = [
@@ -41,7 +43,7 @@ export const staysData = [
 
     ],
     details: "Greek Architecture • Private Garden Balcony • Indoor Pantry",
-    amenities: ["A cozy king-size bed", "Private Garden Balcony", "Indoor Pantry", "Private Dining Area", "High-ceiling Drawing Room"]
+    amenities: ["A cozy king-size bed", "Private Garden Balcony", "Indoor Pantry", ]
   },
   {
     id: "bamboo-stay",

@@ -17,18 +17,13 @@ const amenitiesList = [
     image: "/wifi-1.jpg"
   },
   {
-    name: "Living Area",
-    description: "Relax in our spacious, comfortable living areas designed for unwinding and spending quality time with loved ones.",
-    image: "/family/f (1).webp"
-  },
-  {
     name: "Swimming Pool",
     description: "Take a refreshing dip in our pristine swimming pool, surrounded by nature for a truly serene experience.",
     image: "/swimmingpool/2.webp"
   },
   {
-    name: "Outdoor Deck Sitting",
-    description: "Enjoy the fresh air and beautiful views from our outdoor deck sitting area, perfect for morning coffee or evening conversations.",
+    name: "Outdoor Sitting",
+    description: "Enjoy the fresh air and beautiful views from our outdoor sitting area, perfect for morning coffee or evening conversations.",
     image: "/kailasha-new-iamges/6.webp"
   },
   {
@@ -37,8 +32,8 @@ const amenitiesList = [
     image: "/new/5.jpg"
   },
   {
-    name: "Recreation",
-    description: "Engage in various recreational activities that keep you entertained and connected with nature during your stay.",
+    name: "Recreation and Games",
+    description: "Engage in various recreational activities and games that keep you entertained and connected with nature during your stay.",
     image: "/new/1.webp"
   },
   {
@@ -60,6 +55,21 @@ const amenitiesList = [
     name: "Farm Walks",
     description: "Explore our organic farm on guided walks, learn about sustainable farming, and connect with the land.",
     image: "/new/4.png"
+  },
+  {
+    name: "Pet Friendly",
+    description: "Bring your furry friends along! Our pet-friendly property ensures a comfortable stay for you and your beloved pets.",
+    image: "/pets/p (1).JPG"
+  },
+  {
+    name: "24/7 Power Backup",
+    description: "Enjoy uninterrupted stay with our reliable 24/7 power backup system, ensuring your comfort at all times.",
+    image: "/kailasha-new-iamges/1.webp"
+  },
+  {
+    name: "Tea and Souvenirs",
+    description: "Relish a warm cup of tea and browse through our curated selection of unique souvenirs to take home memories of your stay.",
+    image: "/new/1.webp"
   },
 ];
 
@@ -140,7 +150,7 @@ export default function Amenities() {
                 className="overflow-hidden"
               >
                 <div className="pb-6 pl-8">
-                      <div className="mb-4 h-64 w-full overflow-hidden rounded-lg relative">
+                      <div className="mb-4 h-96 w-full overflow-hidden rounded-lg relative">
                         <Image
                           src={amenity.image}
                           alt={amenity.name}
